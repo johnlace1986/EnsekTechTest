@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest", "src\EnsekTechTest\EnsekTechTest.csproj", "{43D7B31D-3A86-4B1D-8F99-0ACE4CABC4A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest", "src\EnsekTechTest\EnsekTechTest.csproj", "{43D7B31D-3A86-4B1D-8F99-0ACE4CABC4A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Persistence", "src\EnsekTechTest.Persistence\EnsekTechTest.Persistence.csproj", "{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{503B64B4-02AB-43BB-8255-E8DAC048A94D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +25,17 @@ Global
 		{43D7B31D-3A86-4B1D-8F99-0ACE4CABC4A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D7B31D-3A86-4B1D-8F99-0ACE4CABC4A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43D7B31D-3A86-4B1D-8F99-0ACE4CABC4A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{43D7B31D-3A86-4B1D-8F99-0ACE4CABC4A4} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
+		{3D92BBCF-671F-4AE2-96C4-720B6A81D60A} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5C111AC-62CC-4E0E-9E91-F5727A736690}
