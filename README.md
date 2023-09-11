@@ -1,4 +1,4 @@
-# Ensek Tech Tests
+# Ensek Tech Test
 
 ## Database Creation
 
