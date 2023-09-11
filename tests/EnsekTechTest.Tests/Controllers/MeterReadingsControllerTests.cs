@@ -2,7 +2,6 @@
 using EnsekTechTest.Controllers;
 using EnsekTechTest.Services;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,20 +51,6 @@ namespace EnsekTechTest.Tests.Controllers
             await sut.UploadMeterReadingsAsync(FormFile, CancellationToken.None);
 
             mediatorMock.Verify(mock => mock.Send(It.IsAny<AddMeterReadingsToAccountCommand>(), It.IsAny<CancellationToken>()), Times.Exactly(2));
-
-            //using (new AssertionScope())
-            //{
-            //    mediatorMock.Verify(mock => mock.Send(It.Is<AddMeterReadingsToAccountCommand>(command => 
-            //        command.AccountId == 1 &&
-            //        command.MeterReadings.ElementAt(0).)))
-            //    foreach (var meterReading in meterReadings)
-            //    {
-            //        mediatorMock.Verify(mock => mock.Send(It.Is<AddMeterReadingsToAccountCommand>(command =>
-            //            command.AccountId == meterReading.AccountId &&
-            //            command.ReadingDateTime == meterReading.ReadingDateTime &&
-            //            command.Value == meterReading.Value), It.IsAny<CancellationToken>()), Times.Once);
-            //    }
-            //}
         }
 
         [Test]
