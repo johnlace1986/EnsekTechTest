@@ -1,6 +1,20 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using EnsekTechTest.Application;
 using EnsekTechTest.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(
+    containerBuilder => 
+    { 
+        containerBuilder.RegisterModule(new ApplicationModule());
+    });
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 // Add services to the container.
 builder.Services.AddSingleton<IMeterReadingsParser, MeterReadingsParser>();

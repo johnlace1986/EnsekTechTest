@@ -1,4 +1,6 @@
-﻿using EnsekTechTest.Services;
+﻿using EnsekTechTest.Application.Commands;
+using EnsekTechTest.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnsekTechTest.Controllers
@@ -6,20 +8,26 @@ namespace EnsekTechTest.Controllers
     public class MeterReadingsController : Controller
     {
         private readonly IMeterReadingsParser _meterReadingsParser;
+        private readonly IMediator _mediator;
 
-        public MeterReadingsController(IMeterReadingsParser meterReadingsParser)
+        public MeterReadingsController(
+            IMeterReadingsParser meterReadingsParser,
+            IMediator mediator)
         {
             _meterReadingsParser = meterReadingsParser;
+            _mediator = mediator;
         }
 
         [HttpPost]
         [Route("meter-reading-uploads")]
-        public async Task<IActionResult> UploadMeterReadings([FromForm(Name = "file")] IFormFile file, CancellationToken cancellationToken)
+        public async Task<IActionResult> UploadMeterReadingsAsync([FromForm(Name = "file")] IFormFile file, CancellationToken cancellationToken)
         {
+            IEnumerable<IMeterReadingsParser.MeterReading> meterReadings;
+
             try
             {
                 using var readStream = file.OpenReadStream();
-                var meterReadings = await _meterReadingsParser.ParseMeterReadings(readStream, cancellationToken);
+                meterReadings = await _meterReadingsParser.ParseMeterReadings(readStream, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -27,7 +35,35 @@ namespace EnsekTechTest.Controllers
                 return BadRequest();
             }
 
+            var commands = GroupMeterReadingsByAccount(meterReadings);
+
+            var results = await Task.WhenAll(commands.Select(command =>
+            {
+                return _mediator.Send(command, cancellationToken);
+            }));
+
             return Ok();
+        }
+
+        private static IEnumerable<AddMeterReadingsToAccountCommand> GroupMeterReadingsByAccount(IEnumerable<IMeterReadingsParser.MeterReading> meterReadings)
+        {
+            var commands =
+                from meterReading in meterReadings
+                group meterReading by meterReading.AccountId into accounts
+                select new AddMeterReadingsToAccountCommand
+                {
+                    AccountId = accounts.Key,
+                    MeterReadings = accounts
+                        .Select(groupedMeterReading => new AddMeterReadingsToAccountCommand.MeterReading
+                        {
+                            ReadingDateTime = groupedMeterReading.ReadingDateTime,
+                            Value = groupedMeterReading.Value
+                        })
+                        .OrderBy(groupedMeterReading => groupedMeterReading.ReadingDateTime)
+                    
+                };
+
+            return commands;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace EnsekTechTest.Tests.Services
         {
             var now = DateTimeOffset.UtcNow;
 
-            var expectedMeterReading = new MeterReading
+            var expectedMeterReading = new IMeterReadingsParser.MeterReading
             {
                 AccountId = 1234,
                 ReadingDateTime = now,
