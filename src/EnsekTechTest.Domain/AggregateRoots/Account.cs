@@ -38,7 +38,7 @@ namespace EnsekTechTest.Domain.AggregateRoots
                 return AddMeterReadingToAccountFailure.ValueOutOfRange;
 
             var meterReadings = MeterReadings.ToList();
-            meterReadings.Add(new MeterReading(Guid.NewGuid(), readingDateTime, value));
+            meterReadings.Add(new MeterReading(readingDateTime, value));
 
             MeterReadings = meterReadings;
             return Unit.Instance;

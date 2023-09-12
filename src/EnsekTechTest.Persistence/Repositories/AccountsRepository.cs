@@ -21,24 +21,6 @@ namespace EnsekTechTest.Persistence.Repositories
                 .SingleOrDefaultAsync(account => account.Id == id, cancellationToken);
 
             return AccountMapper.Map(account);
-        }
-
-        public Task CommitChanges(DomainAccount domainAccount, CancellationToken cancellationToken)
-        {
-            var persistenceAccount = _context.Accounts.Include(account => account.MeterReadings).SingleOrDefault(account => account.Id == domainAccount.Id);
-
-            if (persistenceAccount == null)
-                _context.Add(AccountMapper.Map(domainAccount));
-            else
-            {
-                persistenceAccount.FirstName = domainAccount.FirstName;
-                persistenceAccount.LastName = domainAccount.LastName;
-                persistenceAccount.MeterReadings = domainAccount.MeterReadings.Select(AccountMapper.Map).ToList();
-
-                _context.Accounts.Update(persistenceAccount);
-            }
-
-            return _context.SaveChangesAsync(cancellationToken);
-        }        
+        }     
     }
 }

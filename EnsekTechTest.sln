@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Application",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Domain", "src\EnsekTechTest.Domain\EnsekTechTest.Domain.csproj", "{13283A4C-385B-42B8-B2DF-0FB65930D9F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Application.Tests", "tests\EnsekTechTest.Application.Tests\EnsekTechTest.Application.Tests.csproj", "{63FA04F1-D693-4178-B825-E66011B939CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Application.Tests", "tests\EnsekTechTest.Application.Tests\EnsekTechTest.Application.Tests.csproj", "{63FA04F1-D693-4178-B825-E66011B939CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Domain.Tests", "tests\EnsekTechTest.Domain.Tests\EnsekTechTest.Domain.Tests.csproj", "{07E2CB37-A43A-43A4-9176-A6B130C79653}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Domain.Tests", "tests\EnsekTechTest.Domain.Tests\EnsekTechTest.Domain.Tests.csproj", "{07E2CB37-A43A-43A4-9176-A6B130C79653}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.FunctionalTests", "tests\EnsekTechTest.FunctionalTests\EnsekTechTest.FunctionalTests.csproj", "{67F3D68F-CE52-44E1-947B-14597E56958B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67F3D68F-CE52-44E1-947B-14597E56958B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F3D68F-CE52-44E1-947B-14597E56958B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F3D68F-CE52-44E1-947B-14597E56958B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F3D68F-CE52-44E1-947B-14597E56958B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{13283A4C-385B-42B8-B2DF-0FB65930D9F4} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
 		{63FA04F1-D693-4178-B825-E66011B939CF} = {E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}
 		{07E2CB37-A43A-43A4-9176-A6B130C79653} = {E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}
+		{67F3D68F-CE52-44E1-947B-14597E56958B} = {E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5C111AC-62CC-4E0E-9E91-F5727A736690}

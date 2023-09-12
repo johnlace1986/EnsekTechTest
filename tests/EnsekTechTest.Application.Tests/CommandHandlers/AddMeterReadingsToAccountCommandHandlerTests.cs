@@ -18,7 +18,7 @@ namespace EnsekTechTest.Application.Tests.CommandHandlers
             accountRepositoryMock.Setup(mock => mock.GetByIdAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult<Domain.AggregateRoots.Account>(null));
 
-            var sut = new AddMeterReadingsToAccountCommandHandler(accountRepositoryMock.Object);
+            var sut = new AddMeterReadingsToAccountCommandHandler(accountRepositoryMock.Object, Mock.Of<IMeterReadingsRepository>());
 
             var command = new AddMeterReadingsToAccountCommand
             {
@@ -47,11 +47,15 @@ namespace EnsekTechTest.Application.Tests.CommandHandlers
             accountRepositoryMock.Setup(mock => mock.GetByIdAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(account);
 
-            var sut = new AddMeterReadingsToAccountCommandHandler(accountRepositoryMock.Object);
+            var meterReadingsRepositoryMock = new Mock<IMeterReadingsRepository>();
+
+            var sut = new AddMeterReadingsToAccountCommandHandler(accountRepositoryMock.Object, meterReadingsRepositoryMock.Object);
+
+            var now = DateTimeOffset.UtcNow;
 
             var repeatingMeterReading = new AddMeterReadingsToAccountCommand.MeterReading
             {
-                ReadingDateTime = DateTimeOffset.UtcNow.AddDays(1),
+                ReadingDateTime = now.AddDays(1),
                 Value = 23456
             };
 
@@ -60,7 +64,7 @@ namespace EnsekTechTest.Application.Tests.CommandHandlers
                 AccountId = 1,
                 MeterReadings = new[]
                 {
-                    new AddMeterReadingsToAccountCommand.MeterReading{ ReadingDateTime = DateTimeOffset.UtcNow, Value = 12345},
+                    new AddMeterReadingsToAccountCommand.MeterReading{ ReadingDateTime = now, Value = 12345},
                     repeatingMeterReading,
                     repeatingMeterReading
                 }
@@ -70,13 +74,17 @@ namespace EnsekTechTest.Application.Tests.CommandHandlers
 
             using (new AssertionScope())
             {
+                meterReadingsRepositoryMock.Verify(
+                    mock => mock.AddMeterReadingAsync(1, now, 12345, It.IsAny<CancellationToken>()), Times.Once);
+
+                meterReadingsRepositoryMock.Verify(
+                    mock => mock.AddMeterReadingAsync(1, now.AddDays(1), 23456, It.IsAny<CancellationToken>()), Times.Once);
+
                 result.Should().BeEquivalentTo(new AddMeterReadingsToAccountCommandResult
                 {
                     SuccessfulMeterReadings = 2,
                     FailedMeterReadings = 1
                 });
-
-                accountRepositoryMock.Verify(mock => mock.CommitChanges(account, It.IsAny<CancellationToken>()), Times.Once());
             }
         }
     }

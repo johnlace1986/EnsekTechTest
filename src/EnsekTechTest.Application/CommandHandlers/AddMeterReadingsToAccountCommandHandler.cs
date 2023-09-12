@@ -8,11 +8,14 @@ namespace EnsekTechTest.Application.CommandHandlers
     public class AddMeterReadingsToAccountCommandHandler : IRequestHandler<AddMeterReadingsToAccountCommand, AddMeterReadingsToAccountCommandResult>
     {
         private readonly IAccountsRepository _accountsRepository;
+        private readonly IMeterReadingsRepository _meterReadingsRepository;
 
         public AddMeterReadingsToAccountCommandHandler(
-            IAccountsRepository accountsRepository)
+            IAccountsRepository accountsRepository,
+            IMeterReadingsRepository meterReadingsRepository)
         {
             _accountsRepository = accountsRepository;
+            _meterReadingsRepository = meterReadingsRepository;
         }
 
         public async Task<AddMeterReadingsToAccountCommandResult> Handle(AddMeterReadingsToAccountCommand command, CancellationToken cancellationToken)
@@ -32,13 +35,13 @@ namespace EnsekTechTest.Application.CommandHandlers
                 var addMeterReadingResult = account.AddMeterReading(meterReading.ReadingDateTime, meterReading.Value);
 
                 if (addMeterReadingResult.IsSuccess)
+                {
                     result.SuccessfulMeterReadings++;
+                    await _meterReadingsRepository.AddMeterReadingAsync(account.Id, meterReading.ReadingDateTime, meterReading.Value, cancellationToken);
+                }
                 else
                     result.FailedMeterReadings++;
             }
-
-            if (result.SuccessfulMeterReadings > 0)
-                await _accountsRepository.CommitChanges(account, cancellationToken);
 
             return result;
         }

@@ -16,7 +16,7 @@ namespace EnsekTechTest.Domain.Tests.AggregateRoots
 
             var account = new Account(1, "Joe", "Bloggs", new[]
             {
-                new MeterReading(Guid.NewGuid(), readingDateTime, value)
+                new MeterReading(readingDateTime, value)
             });
 
             var result = account.AddMeterReading(readingDateTime, value);
@@ -36,7 +36,7 @@ namespace EnsekTechTest.Domain.Tests.AggregateRoots
 
             var account = new Account(1, "Joe", "Bloggs", new[]
             {
-                new MeterReading(Guid.NewGuid(), readingDateTime, value)
+                new MeterReading(readingDateTime, value)
             });
 
             var result = account.AddMeterReading(readingDateTime.AddDays(-1), value);
