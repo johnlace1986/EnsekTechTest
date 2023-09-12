@@ -1,11 +1,12 @@
-﻿using EnsekTechTest.Persistence.Models;
+﻿using EnsekTechTest.Application.Infrastructure;
+using EnsekTechTest.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnsekTechTest.Persistence
+namespace EnsekTechTest.Persistence.DbContexts
 {
-    public class AccountContext : DbContext
+    public class PersistenceContext : DbContext, IAccountContext, IMeterReadingContext, IUnitOfWork
     {
-        public AccountContext() : base()
+        public PersistenceContext() : base()
         {
         }
 

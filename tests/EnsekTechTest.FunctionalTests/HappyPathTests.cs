@@ -36,12 +36,14 @@ namespace EnsekTechTest.FunctionalTests
             request.Content = content;
 
             var response = await Client.SendAsync(request);
-            var responseContentString = await response.Content.ReadAsStringAsync();
-
-            var result = JsonConvert.DeserializeObject<AddMeterReadingsToAccountCommandResult>(responseContentString);
 
             using (new AssertionScope())
             {
+                response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+                var responseContentString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<AddMeterReadingsToAccountCommandResult>(responseContentString);
+
                 result.SuccessfulMeterReadings.Should().Be(1);
                 result.FailedMeterReadings.Should().Be(1);
             }

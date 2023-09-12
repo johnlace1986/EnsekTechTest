@@ -44,6 +44,8 @@ namespace EnsekTechTest.Tests.Controllers
                 .ReturnsAsync(meterReadings);
 
             var mediatorMock = new Mock<IMediator>();
+            mediatorMock.Setup(mock => mock.Send(It.IsAny<AddMeterReadingsToAccountCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AddMeterReadingsToAccountCommandResult());
 
             var sut = new MeterReadingsController(
                 meterReadingsParserMock.Object,

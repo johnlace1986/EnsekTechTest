@@ -33,7 +33,7 @@ namespace EnsekTechTest.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReadingDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false),
-                    AccountId = table.Column<int>(type: "int", nullable: true)
+                    AccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,8 @@ namespace EnsekTechTest.Persistence.Migrations
                         name: "FK_MeterReadings_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(

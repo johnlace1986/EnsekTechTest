@@ -1,4 +1,4 @@
-﻿namespace EnsekTechTest.Application.Repositories
+﻿namespace EnsekTechTest.Application.Infrastructure.Repositories
 {
     public interface IMeterReadingsRepository
     {

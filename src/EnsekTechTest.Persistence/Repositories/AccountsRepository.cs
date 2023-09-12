@@ -1,22 +1,23 @@
-﻿using EnsekTechTest.Application.Repositories;
+﻿using EnsekTechTest.Application.Infrastructure.Repositories;
+using EnsekTechTest.Persistence.DbContexts;
 using EnsekTechTest.Persistence.Mappers;
 using Microsoft.EntityFrameworkCore;
 using DomainAccount = EnsekTechTest.Domain.AggregateRoots.Account;
 
 namespace EnsekTechTest.Persistence.Repositories
 {
-    public class AccountsRepository : IAccountsRepository
+    internal class AccountsRepository : IAccountsRepository
     {
-        private readonly AccountContext _context;
+        private readonly IAccountContext _accountContext;
 
-        public AccountsRepository()
+        public AccountsRepository(IAccountContext accountContext)
         {
-            _context = new AccountContext();
+            _accountContext = accountContext;
         }
 
         public async Task<DomainAccount> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var account = await _context.Accounts
+            var account = await _accountContext.Accounts
                 .Include(account => account.MeterReadings)
                 .SingleOrDefaultAsync(account => account.Id == id, cancellationToken);
 

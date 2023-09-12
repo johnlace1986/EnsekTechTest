@@ -1,27 +1,26 @@
-﻿using EnsekTechTest.Application.Repositories;
+﻿using EnsekTechTest.Application.Infrastructure.Repositories;
+using EnsekTechTest.Persistence.DbContexts;
 using EnsekTechTest.Persistence.Models;
 
 namespace EnsekTechTest.Persistence.Repositories
 {
-    public class MeterReadingsRepository : IMeterReadingsRepository
+    internal class MeterReadingsRepository : IMeterReadingsRepository
     {
-        private readonly AccountContext _context;
+        private readonly IMeterReadingContext _meterReadingContext;
 
-        public MeterReadingsRepository()
+        public MeterReadingsRepository(IMeterReadingContext meterReadingContext)
         {
-            _context = new AccountContext();
+            _meterReadingContext = meterReadingContext;
         }
 
         public async Task AddMeterReadingAsync(int accountId, DateTimeOffset readingDateTime, int value, CancellationToken cancellationToken)
         {
-            await _context.MeterReadings.AddAsync(new MeterReading
+            await _meterReadingContext.MeterReadings.AddAsync(new MeterReading
             {
                 ReadingDateTime = readingDateTime,
                 Value = value,
                 AccountId = accountId
             }, cancellationToken);
-
-            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -12,5 +12,5 @@ This project uses Entity Framework Core as the ORM to talk to the underlying SQL
 The following list the known issues that I did not have time to resolve before submitting the project:
 
 * The SQL connection string is hardcoded to `Server=(LocalDb)\\MSSQLLocalDB;Database=EnsekTechTest;Trusted_Connection=True;`
-* The unit of work is committed after each individual meter reading is added. It would be more performant to add all meter reading to the repository and then commit the unit of work at the end
+* The unit of work is committed after the meter readings for each account are added. It could be more performant to add all meter readings for all accounts to the repository and then commit the unit of work at the end
 * The functional test project uses the same database as the locally running instance, causing the tests to pollute the database
