@@ -26,19 +26,24 @@ namespace EnsekTechTest.Domain.AggregateRoots
             MeterReadings = meterReadings;
         }
 
-        public Result<Unit, AddMeterReadingToAccountFailure> AddMeterReading(DateTimeOffset readDateTime, int value)
+        public Result<Unit, AddMeterReadingToAccountFailure> AddMeterReading(DateTimeOffset readingDateTime, int value)
         {
-            if (MeterReadings.Any(meterReading => meterReading.ReadingDateTime == readDateTime && meterReading.Value == value))
+            if (MeterReadings.Any(meterReading => meterReading.ReadingDateTime == readingDateTime && meterReading.Value == value))
                 return AddMeterReadingToAccountFailure.AlreadyAdded;
 
-            if (MeterReadings.Any(meterReading => meterReading.ReadingDateTime >= readDateTime))
+            if (MeterReadings.Any(meterReading => meterReading.ReadingDateTime >= readingDateTime))
                 return AddMeterReadingToAccountFailure.NewerReadingExists;
 
+            if (ValueIsInRange(value) is false)
+                return AddMeterReadingToAccountFailure.ValueOutOfRange;
+
             var meterReadings = MeterReadings.ToList();
-            meterReadings.Add(new MeterReading(Guid.NewGuid(), readDateTime, value));
+            meterReadings.Add(new MeterReading(Guid.NewGuid(), readingDateTime, value));
 
             MeterReadings = meterReadings;
             return Unit.Instance;
         }
+
+        private static bool ValueIsInRange(int value) => -99999 <= value && value <= 99999;
     }
 }

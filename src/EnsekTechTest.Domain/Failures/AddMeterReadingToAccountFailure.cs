@@ -3,6 +3,7 @@
     public enum AddMeterReadingToAccountFailure
     {
         AlreadyAdded,
-        NewerReadingExists
+        NewerReadingExists,
+        ValueOutOfRange
     }
 }

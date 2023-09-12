@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest", "src\EnsekT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Persistence", "src\EnsekTechTest.Persistence\EnsekTechTest.Persistence.csproj", "{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Persistence", "src\EnsekTechTest.Persistence\EnsekTechTest.Persistence.csproj", "{3D92BBCF-671F-4AE2-96C4-720B6A81D60A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{503B64B4-02AB-43BB-8255-E8DAC048A94D}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,13 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{503B64B4-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Tests", "tests\EnsekTechTest.Tests\EnsekTechTest.Tests.csproj", "{274360DF-4182-4215-8320-B1452DD2DB86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Tests", "tests\EnsekTechTest.Tests\EnsekTechTest.Tests.csproj", "{274360DF-4182-4215-8320-B1452DD2DB86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Core", "src\EnsekTechTest.Core\EnsekTechTest.Core.csproj", "{1458CFC7-B0FF-4A36-8745-78E155269A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Core", "src\EnsekTechTest.Core\EnsekTechTest.Core.csproj", "{1458CFC7-B0FF-4A36-8745-78E155269A35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Application", "src\EnsekTechTest.Application\EnsekTechTest.Application.csproj", "{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Application", "src\EnsekTechTest.Application\EnsekTechTest.Application.csproj", "{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Domain", "src\EnsekTechTest.Domain\EnsekTechTest.Domain.csproj", "{13283A4C-385B-42B8-B2DF-0FB65930D9F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnsekTechTest.Domain", "src\EnsekTechTest.Domain\EnsekTechTest.Domain.csproj", "{13283A4C-385B-42B8-B2DF-0FB65930D9F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Application.Tests", "tests\EnsekTechTest.Application.Tests\EnsekTechTest.Application.Tests.csproj", "{63FA04F1-D693-4178-B825-E66011B939CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Domain.Tests", "tests\EnsekTechTest.Domain.Tests\EnsekTechTest.Domain.Tests.csproj", "{07E2CB37-A43A-43A4-9176-A6B130C79653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,14 @@ Global
 		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FA04F1-D693-4178-B825-E66011B939CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FA04F1-D693-4178-B825-E66011B939CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FA04F1-D693-4178-B825-E66011B939CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FA04F1-D693-4178-B825-E66011B939CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E2CB37-A43A-43A4-9176-A6B130C79653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +78,8 @@ Global
 		{1458CFC7-B0FF-4A36-8745-78E155269A35} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
 		{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
 		{13283A4C-385B-42B8-B2DF-0FB65930D9F4} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
+		{63FA04F1-D693-4178-B825-E66011B939CF} = {E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}
+		{07E2CB37-A43A-43A4-9176-A6B130C79653} = {E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5C111AC-62CC-4E0E-9E91-F5727A736690}

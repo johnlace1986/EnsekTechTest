@@ -10,11 +10,11 @@
 
         public MeterReading(
             Guid id,
-            DateTimeOffset readDateTime,
+            DateTimeOffset readingDateTime,
             int value) 
         {
             Id = id;
-            ReadingDateTime = readDateTime;
+            ReadingDateTime = readingDateTime;
             Value = value;
         }
     }
