@@ -22,8 +22,8 @@ The base address for the frontend web application will be `http://localhost:4200
 
 ## Known Issues
 
-The following list the known issues that I did not have time to resolve before submitting the project:
+The following lists the known issues that I did not have time to resolve before submitting the project:
 
-* The unit of work is committed after each individual meter reading is added. It would be more performant to add all meter reading to the repository and then commit the unit of work at the end
+* The unit of work is committed after each individual meter reading is added. It could be more performant to add all meter reading to the repository and then commit the unit of work at the end
 * The functional test project uses the same database as the locally running instance, causing the tests to pollute the database
 * The web application does not change to any kind of loading screen to indicate that the API is currently being called so if you upload a file and get the same response back to back it doesn't look like anything is happening
