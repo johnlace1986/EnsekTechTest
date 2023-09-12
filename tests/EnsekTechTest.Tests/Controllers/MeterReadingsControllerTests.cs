@@ -1,9 +1,7 @@
 ﻿using EnsekTechTest.Application.Commands;
-using EnsekTechTest.Application.Failures;
 using EnsekTechTest.Controllers;
 using EnsekTechTest.Services;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,37 +52,6 @@ namespace EnsekTechTest.Tests.Controllers
             await sut.UploadMeterReadingsAsync(FormFile, CancellationToken.None);
 
             mediatorMock.Verify(mock => mock.Send(It.IsAny<AddMeterReadingsToAccountCommand>(), It.IsAny<CancellationToken>()), Times.Exactly(2));
-        }
-
-        [Test]
-        public async Task CommandReturnsFailure()
-        {
-            var meterReadings = new[]
-            {
-                new IMeterReadingsParser.MeterReading { AccountId = 1, ReadingDateTime = DateTimeOffset.UtcNow, Value = 12345 },
-                new IMeterReadingsParser.MeterReading { AccountId = 99, ReadingDateTime = DateTimeOffset.UtcNow.AddDays(10), Value = 54321 }
-            };
-
-            var meterReadingsParserMock = new Mock<IMeterReadingsParser>();
-            meterReadingsParserMock.Setup(mock => mock.ParseMeterReadings(It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(meterReadings);
-
-            var mediatorMock = new Mock<IMediator>();
-            mediatorMock.SetupSequence(mock => mock.Send(It.IsAny<AddMeterReadingsToAccountCommand>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AddMeterReadingsToAccountCommandResult
-                {
-                    SuccessfulMeterReadings = 1,
-                    FailedMeterReadings = 2
-                })
-                .ReturnsAsync(AddMeterReadingsToAccountFailure.AccountNotFound);
-
-            var sut = new MeterReadingsController(
-                meterReadingsParserMock.Object,
-                mediatorMock.Object);
-
-            var result = await sut.UploadMeterReadingsAsync(FormFile, CancellationToken.None);
-
-            result.Should().BeOfType<UnprocessableEntityResult>();
         }
 
         [Test]

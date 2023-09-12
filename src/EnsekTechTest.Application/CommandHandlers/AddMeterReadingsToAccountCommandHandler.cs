@@ -1,13 +1,11 @@
 ﻿using EnsekTechTest.Application.Commands;
-using EnsekTechTest.Application.Failures;
 using EnsekTechTest.Application.Repositories;
-using EnsekTechTest.Core;
 using MediatR;
 using AddMeterReadingsToAccountCommandResult = EnsekTechTest.Application.Commands.AddMeterReadingsToAccountCommand.AddMeterReadingsToAccountCommandResult;
 
 namespace EnsekTechTest.Application.CommandHandlers
 {
-    public class AddMeterReadingsToAccountCommandHandler : IRequestHandler<AddMeterReadingsToAccountCommand, Result<AddMeterReadingsToAccountCommandResult, AddMeterReadingsToAccountFailure>>
+    public class AddMeterReadingsToAccountCommandHandler : IRequestHandler<AddMeterReadingsToAccountCommand, AddMeterReadingsToAccountCommandResult>
     {
         private readonly IAccountsRepository _accountsRepository;
 
@@ -17,14 +15,17 @@ namespace EnsekTechTest.Application.CommandHandlers
             _accountsRepository = accountsRepository;
         }
 
-        public async Task<Result<AddMeterReadingsToAccountCommandResult, AddMeterReadingsToAccountFailure>> Handle(AddMeterReadingsToAccountCommand command, CancellationToken cancellationToken)
+        public async Task<AddMeterReadingsToAccountCommandResult> Handle(AddMeterReadingsToAccountCommand command, CancellationToken cancellationToken)
         {
+            var result = new AddMeterReadingsToAccountCommandResult();
+
             var account = await _accountsRepository.GetByIdAsync(command.AccountId, cancellationToken);
 
             if (account is null)
-                return AddMeterReadingsToAccountFailure.AccountNotFound;
-
-            var result = new AddMeterReadingsToAccountCommandResult();
+            {
+                result.FailedMeterReadings = command.MeterReadings.Count();
+                return result;
+            }
 
             foreach (var meterReading in command.MeterReadings)
             {
@@ -36,9 +37,10 @@ namespace EnsekTechTest.Application.CommandHandlers
                     result.FailedMeterReadings++;
             }
 
-            await _accountsRepository.CommitChanges(account, cancellationToken);
+            if (result.SuccessfulMeterReadings > 0)
+                await _accountsRepository.CommitChanges(account, cancellationToken);
 
-            return new Result<AddMeterReadingsToAccountCommandResult, AddMeterReadingsToAccountFailure>(result);
+            return result;
         }
     }
 }

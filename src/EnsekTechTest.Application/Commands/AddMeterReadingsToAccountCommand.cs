@@ -1,11 +1,9 @@
-﻿using EnsekTechTest.Application.Failures;
-using EnsekTechTest.Core;
-using MediatR;
+﻿using MediatR;
 using static EnsekTechTest.Application.Commands.AddMeterReadingsToAccountCommand;
 
 namespace EnsekTechTest.Application.Commands
 {
-    public class AddMeterReadingsToAccountCommand : IRequest<Result<AddMeterReadingsToAccountCommandResult, AddMeterReadingsToAccountFailure>>
+    public class AddMeterReadingsToAccountCommand : IRequest<AddMeterReadingsToAccountCommandResult>
     {
         public int AccountId { get; set; }
 

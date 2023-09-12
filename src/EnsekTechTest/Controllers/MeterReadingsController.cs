@@ -1,5 +1,4 @@
 ﻿using EnsekTechTest.Application.Commands;
-using EnsekTechTest.Application.Failures;
 using EnsekTechTest.Core;
 using EnsekTechTest.Services;
 using MediatR;
@@ -69,15 +68,12 @@ namespace EnsekTechTest.Controllers
             return commands;
         }
 
-        private IActionResult ProcessResults(Result<AddMeterReadingsToAccountCommandResult, AddMeterReadingsToAccountFailure>[] results)
+        private IActionResult ProcessResults(AddMeterReadingsToAccountCommandResult[] results)
         {
-            if (results.Any(result => result.IsSuccess is false))
-                return UnprocessableEntity();
-
             var overallResult = new AddMeterReadingsToAccountCommandResult
             {
-                SuccessfulMeterReadings = results.Sum(result => result.Success.SuccessfulMeterReadings),
-                FailedMeterReadings = results.Sum(result => result.Success.FailedMeterReadings)
+                SuccessfulMeterReadings = results.Sum(result => result.SuccessfulMeterReadings),
+                FailedMeterReadings = results.Sum(result => result.FailedMeterReadings)
             };
 
             return Ok(overallResult);
