@@ -4,17 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+	
   <ItemGroup>
-    <None Remove="persistencesettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="persistencesettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+	<InternalsVisibleTo Include="EnsekTechTest.FunctionalTests"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +19,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EnsekTechTest.Application\EnsekTechTest.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="persistencesettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,35 @@
+<div class="page-header">
+    <h1>Meter Reading Uploader</h1>
+</div>
+
+<div class="form-group">
+    <label for="csvFile">CSV File:</label>
+    <input type="file" class="form-control" id="csvFile" (change)="onCsvFileChanged($event)">
+</div>
+
+<button class="btn btn-primary" (click)="uploadMeterReadings()">Upload</button>
+
+<div *ngIf="uploadMeterReadingResult" id="resultsContainer">
+    <div class="page-header">
+        <h4>Results</h4>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Successful Meter Readings
+                </th>
+                <th scope="col">
+                    Failed Meter Readings
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row">{{uploadMeterReadingResult.successfulMeterReadings}}</td>
+                <td>{{uploadMeterReadingResult.failedMeterReadings}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

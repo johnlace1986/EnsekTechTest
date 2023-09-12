@@ -16,11 +16,20 @@ builder.Host.ConfigureContainer<ContainerBuilder>(
         containerBuilder.RegisterModule(new PersistenceModule());
     });
 
-builder.Configuration.AddJsonFile("persistencesettings.json",
-    optional: false,
-    reloadOnChange: true);
-
 // Add services to the container.
+var corsPolicyName = "EnsekTechTest.UI";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: corsPolicyName,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddSingleton<IMeterReadingsParser, MeterReadingsParser>();
@@ -40,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(corsPolicyName);
 
 app.UseAuthorization();
 
