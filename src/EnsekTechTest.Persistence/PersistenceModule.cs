@@ -12,8 +12,6 @@ namespace EnsekTechTest.Persistence
         {
             base.Load(builder);
 
-            builder.RegisterType<PersistenceContext>().AsImplementedInterfaces();
-
             builder.RegisterType<AccountsRepository>().As<IAccountsRepository>();
             builder.RegisterType<MeterReadingsRepository>().As<IMeterReadingsRepository>();
         }

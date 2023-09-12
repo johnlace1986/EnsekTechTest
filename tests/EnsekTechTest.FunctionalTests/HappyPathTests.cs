@@ -31,7 +31,7 @@ namespace EnsekTechTest.FunctionalTests
             var successfulMeterReading = new MeterReading
             {
                 AccountId = 2344,
-                ReadingDateTime = DateTimeOffset.UtcNow,
+                ReadingDateTime = ReducePrecision(DateTimeOffset.UtcNow),
                 Value = 12345
             };
 
@@ -57,7 +57,7 @@ namespace EnsekTechTest.FunctionalTests
                 var context = new PersistenceContext();
                 var account = context.Accounts.Include(account => account.MeterReadings).Single(a => a.Id == successfulMeterReading.AccountId);
                 account.MeterReadings.Should().Contain(meterReading =>
-                    meterReading.ReadingDateTime == successfulMeterReading.ReadingDateTime &&
+                    ReducePrecision(meterReading.ReadingDateTime) == successfulMeterReading.ReadingDateTime &&
                     meterReading.Value == successfulMeterReading.Value);
 
                 result.SuccessfulMeterReadings.Should().Be(1);
@@ -78,6 +78,11 @@ namespace EnsekTechTest.FunctionalTests
             stream.Position = 0;
 
             return stream;
+        }
+
+        private DateTimeOffset ReducePrecision(DateTimeOffset value)
+        {
+            return new DateTimeOffset(value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second, value.Offset);
         }
     }
 }

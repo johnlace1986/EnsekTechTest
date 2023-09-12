@@ -10,16 +10,13 @@ namespace EnsekTechTest.Application.CommandHandlers
     {
         private readonly IAccountsRepository _accountsRepository;
         private readonly IMeterReadingsRepository _meterReadingsRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
         public AddMeterReadingsToAccountCommandHandler(
             IAccountsRepository accountsRepository,
-            IMeterReadingsRepository meterReadingsRepository,
-            IUnitOfWork unitOfWork)
+            IMeterReadingsRepository meterReadingsRepository)
         {
             _accountsRepository = accountsRepository;
             _meterReadingsRepository = meterReadingsRepository;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<AddMeterReadingsToAccountCommandResult> Handle(AddMeterReadingsToAccountCommand command, CancellationToken cancellationToken)
@@ -46,9 +43,6 @@ namespace EnsekTechTest.Application.CommandHandlers
                 else
                     result.FailedMeterReadings++;
             }
-
-            if (result.SuccessfulMeterReadings > 0)
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return result;
         }

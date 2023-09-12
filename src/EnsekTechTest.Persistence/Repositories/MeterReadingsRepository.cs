@@ -6,21 +6,23 @@ namespace EnsekTechTest.Persistence.Repositories
 {
     internal class MeterReadingsRepository : IMeterReadingsRepository
     {
-        private readonly IMeterReadingContext _meterReadingContext;
+        private readonly PersistenceContext _context;
 
-        public MeterReadingsRepository(IMeterReadingContext meterReadingContext)
+        public MeterReadingsRepository()
         {
-            _meterReadingContext = meterReadingContext;
+            _context = new PersistenceContext();
         }
 
         public async Task AddMeterReadingAsync(int accountId, DateTimeOffset readingDateTime, int value, CancellationToken cancellationToken)
         {
-            await _meterReadingContext.MeterReadings.AddAsync(new MeterReading
+            await _context.MeterReadings.AddAsync(new MeterReading
             {
                 ReadingDateTime = readingDateTime,
                 Value = value,
                 AccountId = accountId
             }, cancellationToken);
+
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -8,16 +8,16 @@ namespace EnsekTechTest.Persistence.Repositories
 {
     internal class AccountsRepository : IAccountsRepository
     {
-        private readonly IAccountContext _accountContext;
+        private readonly PersistenceContext _context;
 
-        public AccountsRepository(IAccountContext accountContext)
+        public AccountsRepository()
         {
-            _accountContext = accountContext;
+            _context = new PersistenceContext();
         }
 
         public async Task<DomainAccount> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var account = await _accountContext.Accounts
+            var account = await _context.Accounts
                 .Include(account => account.MeterReadings)
                 .SingleOrDefaultAsync(account => account.Id == id, cancellationToken);
 
