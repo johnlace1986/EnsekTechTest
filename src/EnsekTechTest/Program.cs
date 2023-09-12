@@ -16,9 +16,13 @@ builder.Host.ConfigureContainer<ContainerBuilder>(
         containerBuilder.RegisterModule(new PersistenceModule());
     });
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Configuration.AddJsonFile("persistencesettings.json",
+    optional: false,
+    reloadOnChange: true);
 
 // Add services to the container.
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
 builder.Services.AddSingleton<IMeterReadingsParser, MeterReadingsParser>();
 
 builder.Services.AddControllers();

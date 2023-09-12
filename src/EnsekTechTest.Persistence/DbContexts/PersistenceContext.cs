@@ -1,10 +1,11 @@
 ﻿using EnsekTechTest.Application.Infrastructure;
 using EnsekTechTest.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EnsekTechTest.Persistence.DbContexts
 {
-    public class PersistenceContext : DbContext, IAccountContext, IMeterReadingContext, IUnitOfWork
+    internal class PersistenceContext : DbContext, IAccountContext, IMeterReadingContext, IUnitOfWork
     {
         public PersistenceContext() : base()
         {
@@ -17,8 +18,13 @@ namespace EnsekTechTest.Persistence.DbContexts
         {
             if (optionsBuilder.IsConfigured is false)
             {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("persistencesettings.json")
+                    .Build();
+
                 optionsBuilder.UseSqlServer(
-                    connectionString: "Server=(LocalDb)\\MSSQLLocalDB;Database=EnsekTechTest;Trusted_Connection=True;");
+                    connectionString: configuration.GetSection("sql:connectionString").Value);
             }
 
             base.OnConfiguring(optionsBuilder);

@@ -1,0 +1,5 @@
+{
+  "sql": {
+    "connectionString": "Server=(LocalDb)\\MSSQLLocalDB;Database=EnsekTechTest;Trusted_Connection=True;"
+  }
+}
