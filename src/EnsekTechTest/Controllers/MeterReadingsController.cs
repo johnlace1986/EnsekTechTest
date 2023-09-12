@@ -44,7 +44,13 @@ namespace EnsekTechTest.Controllers
                 return _mediator.Send(command, cancellationToken);
             }));
 
-            return ProcessResults(results);
+            var overallResult = new AddMeterReadingsToAccountCommandResult
+            {
+                SuccessfulMeterReadings = results.Sum(result => result.SuccessfulMeterReadings),
+                FailedMeterReadings = results.Sum(result => result.FailedMeterReadings)
+            };
+
+            return Ok(overallResult);
         }
 
         private static IEnumerable<AddMeterReadingsToAccountCommand> GroupMeterReadingsByAccount(IEnumerable<IMeterReadingsParser.MeterReading> meterReadings)
@@ -66,17 +72,6 @@ namespace EnsekTechTest.Controllers
                 };
 
             return commands;
-        }
-
-        private IActionResult ProcessResults(AddMeterReadingsToAccountCommandResult[] results)
-        {
-            var overallResult = new AddMeterReadingsToAccountCommandResult
-            {
-                SuccessfulMeterReadings = results.Sum(result => result.SuccessfulMeterReadings),
-                FailedMeterReadings = results.Sum(result => result.FailedMeterReadings)
-            };
-
-            return Ok(overallResult);
         }
     }
 }
