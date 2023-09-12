@@ -40,6 +40,16 @@
             IsSuccess = false;
             _failure = failure;
         }
+
+        public static implicit operator Result<TSuccess, TFailure>(TSuccess success)
+        {
+            return new Result<TSuccess, TFailure>(success);
+        }
+
+        public static implicit operator Result<TSuccess, TFailure>(TFailure failure)
+        {
+            return new Result<TSuccess, TFailure>(failure);
+        }
     }
 
     public class Unit

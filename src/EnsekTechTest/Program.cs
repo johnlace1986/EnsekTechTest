@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EnsekTechTest.Application;
+using EnsekTechTest.Persistence;
 using EnsekTechTest.Services;
 using System.Reflection;
 
@@ -9,9 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.ConfigureContainer<ContainerBuilder>(
-    containerBuilder => 
-    { 
+    containerBuilder =>
+    {
         containerBuilder.RegisterModule(new ApplicationModule());
+        containerBuilder.RegisterModule(new PersistenceModule());
     });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));

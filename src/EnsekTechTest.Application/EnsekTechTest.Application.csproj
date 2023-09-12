@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EnsekTechTest.Core\EnsekTechTest.Core.csproj" />
+    <ProjectReference Include="..\EnsekTechTest.Domain\EnsekTechTest.Domain.csproj" />
   </ItemGroup>
 
 </Project>

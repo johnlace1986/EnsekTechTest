@@ -1,12 +1,15 @@
 ﻿using EnsekTechTest.Application.Commands;
+using EnsekTechTest.Application.Failures;
 using EnsekTechTest.Controllers;
 using EnsekTechTest.Services;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using AddMeterReadingsToAccountCommandResult = EnsekTechTest.Application.Commands.AddMeterReadingsToAccountCommand.AddMeterReadingsToAccountCommandResult;
 
 namespace EnsekTechTest.Tests.Controllers
 {
@@ -54,19 +57,75 @@ namespace EnsekTechTest.Tests.Controllers
         }
 
         [Test]
-        public async Task ValidCsvFile()
+        public async Task CommandReturnsFailure()
         {
+            var meterReadings = new[]
+            {
+                new IMeterReadingsParser.MeterReading { AccountId = 1, ReadingDateTime = DateTimeOffset.UtcNow, Value = 12345 },
+                new IMeterReadingsParser.MeterReading { AccountId = 99, ReadingDateTime = DateTimeOffset.UtcNow.AddDays(10), Value = 54321 }
+            };
+
             var meterReadingsParserMock = new Mock<IMeterReadingsParser>();
             meterReadingsParserMock.Setup(mock => mock.ParseMeterReadings(It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(Enumerable.Empty<IMeterReadingsParser.MeterReading>());
+                .ReturnsAsync(meterReadings);
+
+            var mediatorMock = new Mock<IMediator>();
+            mediatorMock.SetupSequence(mock => mock.Send(It.IsAny<AddMeterReadingsToAccountCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AddMeterReadingsToAccountCommandResult
+                {
+                    SuccessfulMeterReadings = 1,
+                    FailedMeterReadings = 2
+                })
+                .ReturnsAsync(AddMeterReadingsToAccountFailure.AccountNotFound);
 
             var sut = new MeterReadingsController(
                 meterReadingsParserMock.Object,
-                Mock.Of<IMediator>());
+                mediatorMock.Object);
 
             var result = await sut.UploadMeterReadingsAsync(FormFile, CancellationToken.None);
 
-            result.Should().BeOfType<OkResult>();
+            result.Should().BeOfType<UnprocessableEntityResult>();
+        }
+
+        [Test]
+        public async Task ValidCsvFile()
+        {
+            var meterReadings = new[]
+            {
+                new IMeterReadingsParser.MeterReading { AccountId = 1, ReadingDateTime = DateTimeOffset.UtcNow, Value = 12345 },
+                new IMeterReadingsParser.MeterReading { AccountId = 99, ReadingDateTime = DateTimeOffset.UtcNow.AddDays(10), Value = 54321 }
+            };
+
+            var meterReadingsParserMock = new Mock<IMeterReadingsParser>();
+            meterReadingsParserMock.Setup(mock => mock.ParseMeterReadings(It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(meterReadings);
+
+            var mediatorMock = new Mock<IMediator>();
+            mediatorMock.SetupSequence(mock => mock.Send(It.IsAny<AddMeterReadingsToAccountCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AddMeterReadingsToAccountCommandResult
+                {
+                    SuccessfulMeterReadings = 1,
+                    FailedMeterReadings = 2
+                })
+                .ReturnsAsync(new AddMeterReadingsToAccountCommandResult
+                {
+                    SuccessfulMeterReadings = 0,
+                    FailedMeterReadings = 100
+                });
+
+            var sut = new MeterReadingsController(
+                meterReadingsParserMock.Object,
+                mediatorMock.Object);
+
+            var result = await sut.UploadMeterReadingsAsync(FormFile, CancellationToken.None);
+
+            result.Should().BeOfType<OkObjectResult>()
+                .Which.Value.Should().BeOfType<AddMeterReadingsToAccountCommandResult>()
+                .Which.Should().BeEquivalentTo(new AddMeterReadingsToAccountCommandResult
+                {
+                    SuccessfulMeterReadings = 1,
+                    FailedMeterReadings = 102
+                });
         }
 
         private static IFormFile FormFile

@@ -5,7 +5,7 @@ namespace EnsekTechTest.Persistence.Models
     public class Account
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 

@@ -24,7 +24,7 @@ namespace EnsekTechTest.Persistence.Migrations
 
             modelBuilder.Entity("EnsekTechTest.Persistence.Models.Account", b =>
                 {
-                    b.Property<int>("AccountId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -33,24 +33,189 @@ namespace EnsekTechTest.Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2344,
+                            FirstName = "Tommy",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2233,
+                            FirstName = "Barry",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 8766,
+                            FirstName = "Sally",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2345,
+                            FirstName = "Jerry",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2346,
+                            FirstName = "Ollie",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2347,
+                            FirstName = "Tara",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2348,
+                            FirstName = "Tammy",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2349,
+                            FirstName = "Simon",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2350,
+                            FirstName = "Colin",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2351,
+                            FirstName = "Gladys",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2352,
+                            FirstName = "Greg",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2353,
+                            FirstName = "Tony",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2355,
+                            FirstName = "Arthur",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 2356,
+                            FirstName = "Craig",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 6776,
+                            FirstName = "Laura",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 4534,
+                            FirstName = "Josh",
+                            LastName = "TEST"
+                        },
+                        new
+                        {
+                            Id = 1234,
+                            FirstName = "Freya",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1239,
+                            FirstName = "Noddy",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1240,
+                            FirstName = "Archie",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1241,
+                            FirstName = "Lara",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1242,
+                            FirstName = "Tim",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1243,
+                            FirstName = "Graham",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1244,
+                            FirstName = "Tony",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1245,
+                            FirstName = "Neville",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1246,
+                            FirstName = "Jo",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1247,
+                            FirstName = "Jim",
+                            LastName = "Test"
+                        },
+                        new
+                        {
+                            Id = 1248,
+                            FirstName = "Pam",
+                            LastName = "Test"
+                        });
                 });
 
             modelBuilder.Entity("EnsekTechTest.Persistence.Models.MeterReading", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MeterReadValue")
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("MeterReadingDateTime")
+                    b.Property<DateTimeOffset>("ReadingDateTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

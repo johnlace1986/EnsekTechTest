@@ -1,7 +1,10 @@
 ﻿using EnsekTechTest.Application.Commands;
+using EnsekTechTest.Application.Failures;
+using EnsekTechTest.Core;
 using EnsekTechTest.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using AddMeterReadingsToAccountCommandResult = EnsekTechTest.Application.Commands.AddMeterReadingsToAccountCommand.AddMeterReadingsToAccountCommandResult;
 
 namespace EnsekTechTest.Controllers
 {
@@ -42,7 +45,7 @@ namespace EnsekTechTest.Controllers
                 return _mediator.Send(command, cancellationToken);
             }));
 
-            return Ok();
+            return ProcessResults(results);
         }
 
         private static IEnumerable<AddMeterReadingsToAccountCommand> GroupMeterReadingsByAccount(IEnumerable<IMeterReadingsParser.MeterReading> meterReadings)
@@ -64,6 +67,20 @@ namespace EnsekTechTest.Controllers
                 };
 
             return commands;
+        }
+
+        private IActionResult ProcessResults(Result<AddMeterReadingsToAccountCommandResult, AddMeterReadingsToAccountFailure>[] results)
+        {
+            if (results.Any(result => result.IsSuccess is false))
+                return UnprocessableEntity();
+
+            var overallResult = new AddMeterReadingsToAccountCommandResult
+            {
+                SuccessfulMeterReadings = results.Sum(result => result.Success.SuccessfulMeterReadings),
+                FailedMeterReadings = results.Sum(result => result.Success.FailedMeterReadings)
+            };
+
+            return Ok(overallResult);
         }
     }
 }

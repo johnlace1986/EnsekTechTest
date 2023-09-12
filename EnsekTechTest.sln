@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Core", "src\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Application", "src\EnsekTechTest.Application\EnsekTechTest.Application.csproj", "{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsekTechTest.Domain", "src\EnsekTechTest.Domain\EnsekTechTest.Domain.csproj", "{13283A4C-385B-42B8-B2DF-0FB65930D9F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13283A4C-385B-42B8-B2DF-0FB65930D9F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{274360DF-4182-4215-8320-B1452DD2DB86} = {E1C0FDE7-57F6-413E-887F-ACB3BDC1CB44}
 		{1458CFC7-B0FF-4A36-8745-78E155269A35} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
 		{2C196BE5-136E-4A86-BBF6-5FEB12ED3F0C} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
+		{13283A4C-385B-42B8-B2DF-0FB65930D9F4} = {91E68D56-22FF-4CE1-99AA-ACBB63FE72DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5C111AC-62CC-4E0E-9E91-F5727A736690}
