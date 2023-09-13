@@ -10,6 +10,7 @@ This project uses Entity Framework Core as the ORM to talk to the underlying SQL
 * Run the `dotnet-ef database update` command (requires the EF Core CLI to be installed)
 
 ## Running the Application
+
 The backend for the application is an ASP.NET Web API that can be started the same way as running any other .NET application (e.g running `dotnet run` against the [EnsekTechTest project](src/EnsekTechTest), opening the solution in Visual Studio and pressing `F5`, etc). The base address for the backend API will be `https://localhost/7264` by default.
 
 The frontend of the application is an Angular web application that can be started by following these instructions:
@@ -18,9 +19,11 @@ The frontend of the application is an Angular web application that can be starte
 * Run the `npm install` command (requires the NPM CLI to be installed)
 * Run the `npm start` command
 * Navigate to the web application's base address in a browser
+
 The base address for the frontend web application will be `http://localhost:4200` by default.
 
 ## Automated Tests
+
 The solution contains a number of unit tests, as well as a functional test that spins up an instance of the API, uploads a CSV and then asserts that the relevant meter readings we saved to the database and the correct response was returned.
 
 ## Known Issues
